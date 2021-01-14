@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req,res,next) => {
-    res.render('pages/prove01', { 
-        path: '/prove01'
+    res.render('pages/prove/prove01', { 
+        path: '/prove/prove01'
     });
 });
 
@@ -22,11 +22,11 @@ router.post('/display',(req,res,next) => {
         message = 'You are older than me!'
     else message = "We have the same age!"
 
-    res.render('pages/prove01dis', {
+    res.render('pages/prove/prove01dis', {
         firstName: fName,
         lastName: lName,
         message: message,
-        path: '/prove01dis'
+        path: '/prove/prove01dis'
     });
     
 });

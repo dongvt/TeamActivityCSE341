@@ -9,11 +9,24 @@
 <div class="jumbotron text-center">
   <div class="container">
     <h1><%= title %></h1>
-    <p>This is the placeholder for Team Activity 02</p>
+    
   </div>
 </div>
 <div class="container">
-  
+  <form action = "/ta02/addUser" method="POST">
+    Add Name: <input type="text" name="name">
+    <button type="submit">Send</button>
+  </form>
+  <form action = "/ta02/removeUser" method="POST">
+    Remove Name: <input type="text" name="name">
+    <button type="submit">Send</button>
+  </form>
+  <p>Names:</p>
+  <% for (let name of namesArray) { %>
+    <%= name %> <br>
+  <%}%>
+
+  <%= error %>
 </div>
 
 
