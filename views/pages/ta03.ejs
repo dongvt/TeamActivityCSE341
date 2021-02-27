@@ -1,21 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <% include ../includes/header.ejs %>
 </head>
 
 <body>
   <% include ../includes/nav.ejs %>
-<div class="jumbotron text-center">
-  <div class="container">
-    <h1><%= title %></h1>
-    <p>This is the placeholder for Team Activity 03</p>
-  </div>
-</div>
-<div class="container">
-  
-</div>
+    
+    <div class="container">
+      
+      
+      <% if ( itemList.length> 0) {%>
+        
+          <%for (var i = 0; i  < itemList.length;i++) {
+              item = itemList[i];
+              if(i % 3 == 0){%>
+                <div class="row">
+              <%}%>
+            <div class="col-md-4 ">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h2>
+                    <%= item.name %>
+                  </h2>
+                </div>
+                <div class="panel-body">
+                  <img class="img-responsive" src="<%= item.imageUrl %>" alt="<%= item.name %>">
+                  <h3>
+                    <%= item.price %>
+                  </h3>
+                  <p>
+                    <%= item.description %>
+                  </p>
+                  <%for (tag of item.tags){%>
+                    <%= tag %>,
+                  <%}%>
+                </div>                       
+              </div>
+            </div>
+            <%if(i % 3 == 2 || i == (itemList.length - 1)){%>
+            </div> <!-- Row //-->
+            <%}%>
+          <%}%>
+      <%}%>
+      <div class="center-block">
+        <a href="prove08?page=1" class = "btn btn-success"> &lt;&lt; </a>
+
+        <%if(page - 1 > 0){%>
+        <a href="prove08?page=<%=page - 1%>" class = "btn btn-primary"> Prev </a>
+        <%}%>
+        <%for(let x = firstIndex; x <= endIndex; x++){%>
+          <a href="prove08?page=<%=x%>" class = "btn <%= x == page ? "btn-primary" : ""%>"> <%=x%> </a>
+        <%}%>
+        <%if(page + 1 < lastPage){%>
+        <a href="prove08?page=<%=page + 1%>" class = "btn btn-primary"> Next </a>
+        <%}%>
+        <a href="prove08?page=<%=lastPage%>" class = "btn btn-success"> &gt;&gt; </a>
+      </div>
+    </div>
 
 
 </body>
+
 </html>
