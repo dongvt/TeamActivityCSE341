@@ -28,6 +28,7 @@ const prove02Route = require('./routes/prove/prove02');
 const prove08Route = require('./routes/prove/prove08');
 const prove09Route = require('./routes/prove/prove09');
 const prove10Route = require('./routes/prove/prove10');
+const prove11Route = require('./routes/prove/prove11');
 
 app.use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')))
    .use('/prove08', prove08Route)
    .use('/prove09', prove09Route)
    .use('/prove10', prove10Route)
+   .use('/prove11', prove11Route)
    .get('/', (req, res, next) => {
      // This is the primary index, always handled last. 
      res.render('pages/index', {title: 'Welcome to my CSE341 repo', path: '/'});
@@ -55,5 +57,23 @@ app.use(express.static(path.join(__dirname, 'public')))
    .use((req, res, next) => {
      // 404 page
      res.render('pages/404', {title: '404 - Page Not Found', path: req.url})
+   });
+   
+   const server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+   const io = require('socket.io')(server);
+
+   io.on('connection', socket => {
+
+     socket.on('disconnect', () => {
+       console.log('CLient disconnected');
+     });
+     
+     socket.on('add', name => {
+      socket.broadcast.emit('refresh')
+     })
+
+     socket.on('delete', name => {
+      socket.broadcast.emit('refresh')
+     })
    })
-   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
