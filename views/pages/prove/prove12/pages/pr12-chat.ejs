@@ -1,0 +1,28 @@
+<% include ../includes/header.ejs %>
+<link href="/stylesheets/pr12.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <% include ../includes/nav.ejs %>
+    <div class="container">
+        <h1>Live chat:</h1>
+        <ul id="chatBox" class="chat">
+        </ul>
+    </div>
+    <% if (user) { %>
+    <div class="input">
+        <p class="displayname"><%= user %></p>
+        <textarea name="message" id="message"></textarea>
+        <button onclick="postMessage()">Send</button>
+        <button onclick="posLogout()">LogOut</button>
+        <input type="hidden" value="<%= user %>" name="user" id="user">
+        <input type="hidden" value="<%= color %>" name="color" id="color">
+    </div>
+    <% } else { %>
+    <p>No login, view only.</p>
+    <% } %>
+</body>
+
+</html>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/scripts/prove12/pr12-chat.js"></script>
